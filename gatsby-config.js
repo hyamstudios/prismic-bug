@@ -1,13 +1,13 @@
-const config = require('./config')
+const config = require('./config');
 
 const {
   NODE_ENV,
   URL: NETLIFY_SITE_URL = config.siteMetadata.siteUrl,
   DEPLOY_PRIME_URL: NETLIFY_DEPLOY_URL = NETLIFY_SITE_URL,
   CONTEXT: NETLIFY_ENV = NODE_ENV,
-} = process.env
-const isNetlifyProduction = NETLIFY_ENV === 'production'
-const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL
+} = process.env;
+const isNetlifyProduction = NETLIFY_ENV === 'production';
+const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL;
 
 module.exports = {
   siteMetadata: {
@@ -45,7 +45,7 @@ module.exports = {
         repositoryName: config.cms.prismicRepoName,
         defaultLang: config.cms.defaultLang,
         langs: config.cms.langs,
-        shortenUrlLangs: true,
+        // shortenUrlLangs: true,
         path: '/preview',
         previews: true,
         /**
@@ -58,6 +58,7 @@ module.exports = {
           {
             type: 'News',
             match: '/:lang?/news/:uid',
+            previewPath: '/news',
             path: '/news',
             component: require.resolve('./src/templates/news.js'),
             langs: config.cms.langs,
@@ -65,6 +66,7 @@ module.exports = {
           {
             type: 'Text',
             match: '/:lang?/:uid',
+            previewPath: '/text',
             path: '/text',
             component: require.resolve('./src/templates/text.js'),
             langs: config.cms.langs,
@@ -155,4 +157,4 @@ module.exports = {
       },
     },
   ],
-}
+};
